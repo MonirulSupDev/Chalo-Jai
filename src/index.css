@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: false;
+}
+
+@plugin "daisyui/theme" {
+  name: "mylight";
+  default: true;
+  color-scheme: light;
+  --color-base-100: #f4f7fb;
+  --color-base-content: #1f2937;
+  --color-primary: #007e12;
+  --color-primary-content: #ffffff;
+}
+
+@plugin "daisyui/theme" {
+  name: "mydark";
+  color-scheme: dark;
+  --color-base-100: #121826;
+  --color-base-content: #e5e7eb;
+  --color-primary: #22c55e;
+  --color-primary-content: #052e12;
+}
+
+/* Make Tailwind's dark: variant follow the daisyUI theme */
+@custom-variant dark (&:where([data-theme=mydark], [data-theme=mydark] *));
+
+@theme {
+  --font-sans: "Poppins", sans-serif;
+  --font-carter: "Carter One", cursive;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-carter;
+  }
+}
