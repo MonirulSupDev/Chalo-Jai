@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const AddTouristsSpot = () => {
+  const { API } = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -30,7 +33,7 @@ const AddTouristsSpot = () => {
       description,
     };
 
-    fetch("http://localhost:5000/add-tourists-spot", {
+    fetch(`${API}/add-tourists-spot`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

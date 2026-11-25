@@ -40,6 +40,9 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // Live site API calling from vercel
+  const API = import.meta.env.VITE_API_URL;
+
   //Setting user (using setUser) to useState above:
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -48,7 +51,7 @@ const AuthProvider = ({ children }) => {
     });
     return () => unSubscribe();
   }, []);
-  const authInfo = { loading, user, createUser, loginUser, logoutUser };
+  const authInfo = { loading, user, createUser, loginUser, logoutUser, API };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

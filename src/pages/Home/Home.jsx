@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import HomeSwiper from "../../components/HomeSwiper/HomeSwiper";
 import SpotCard from "../../components/SpotCard/SpotCard";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Home = () => {
   const [spots, setSpots] = useState([]);
 
+  const { API } = useContext(AuthContext);
+
   useEffect(() => {
-    fetch("http://localhost:5000/all-tourists-spot")
+    fetch(`${API}/all-tourists-spot`)
       .then((res) => res.json())
       .then((data) => setSpots(data));
-  }, []);
+  }, [API]);
 
   return (
     <div>

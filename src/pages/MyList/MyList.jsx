@@ -6,18 +6,18 @@ import Swal from "sweetalert2";
 const MyList = () => {
   const [spots, setSpots] = useState([]);
   const [isLoggedIn] = useState(false); // Toggle based on your auth state
-  const { user } = useContext(AuthContext);
+  const { user, API } = useContext(AuthContext);
 
   useEffect(() => {
     if (!user) return;
     user.getIdToken().then((token) => {
-      fetch("http://localhost:5000/my-spots", {
+      fetch(`${API}/my-spots`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())
         .then(setSpots);
     });
-  }, [user]);
+  }, [user, API]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -30,7 +30,7 @@ const MyList = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed)
-        fetch(`http://localhost:5000/all-tourists-spot/${id}`, {
+        fetch(`${API}/all-tourists-spot/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

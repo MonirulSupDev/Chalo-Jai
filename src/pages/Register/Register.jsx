@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { updateProfile } from "firebase/auth";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, API } = useContext(AuthContext);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -26,7 +26,7 @@ const Register = () => {
       });
 
       // 3. Save to your DB (no password!)
-      const res = await fetch("http://localhost:5000/users", {
+      const res = await fetch(`${API}/users`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ name, photoUrl, email }),
