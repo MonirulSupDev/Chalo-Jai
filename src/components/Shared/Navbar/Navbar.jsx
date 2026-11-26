@@ -146,7 +146,7 @@ const Navbar = () => {
               <div className="w-10 rounded-full">
                 <img alt="User photo" src={user.photoURL} />
               </div>
-              <div className="absolute top-10 -translate-x-22.5 text-white text-nowrap pointer-events-none opacity-0 group-hover:opacity-100">
+              <div className="absolute top-10 -translate-x-22.5 text-zinc-800 dark:text-white text-nowrap pointer-events-none opacity-0 group-hover:opacity-100">
                 {user.displayName}
               </div>
             </div>
