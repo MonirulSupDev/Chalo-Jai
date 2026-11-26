@@ -20,7 +20,8 @@ const MyList = () => {
     });
   }, [user]);
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+    const token = await user.getIdToken();
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -33,6 +34,9 @@ const MyList = () => {
       if (result.isConfirmed)
         fetch(`${API}/all-tourists-spot/${id}`, {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
           .then((res) => res.json())
           .then((data) => {

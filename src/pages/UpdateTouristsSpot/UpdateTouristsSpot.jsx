@@ -1,12 +1,15 @@
+import { useContext } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const UpdateTouristsSpot = () => {
   const loadedSpot = useLoaderData();
+  const { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
     const imageUrl = form.imageUrl.value;
@@ -34,10 +37,12 @@ const UpdateTouristsSpot = () => {
       userName,
       description,
     };
+    const token = await user.getIdToken();
     fetch(`http://localhost:5000/update-tourists-spot/${loadedSpot._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(spot),
     })

@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthContext";
+import { API } from "../../config";
 
 const AddTouristsSpot = () => {
-  const { API } = useContext(AuthContext);
-  const handleSubmit = (e) => {
+  const { user } = useContext(AuthContext);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const imageUrl = form.imageUrl.value;
@@ -33,10 +34,12 @@ const AddTouristsSpot = () => {
       description,
     };
 
+    const token = await user.getIdToken();
     fetch(`${API}/add-tourists-spot`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(spot),
     })
