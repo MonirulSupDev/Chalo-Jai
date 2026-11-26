@@ -6,7 +6,6 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  // updateProfile,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 
@@ -22,12 +21,6 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // Update user
-  // const updateUser = () => {
-  //   setLoading(true);
-  //   updateProfile(auth);
-  // };
-
   // To Login user
   const loginUser = (email, password) => {
     setLoading(true);
@@ -40,9 +33,6 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  // Live site API calling from vercel
-  const API = import.meta.env.VITE_API_URL;
-
   //Setting user (using setUser) to useState above:
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -51,7 +41,7 @@ const AuthProvider = ({ children }) => {
     });
     return () => unSubscribe();
   }, []);
-  const authInfo = { loading, user, createUser, loginUser, logoutUser, API };
+  const authInfo = { loading, user, createUser, loginUser, logoutUser };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

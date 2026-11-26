@@ -2,11 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
 import Swal from "sweetalert2";
+import { API } from "../../config";
 
 const MyList = () => {
   const [spots, setSpots] = useState([]);
   const [isLoggedIn] = useState(false); // Toggle based on your auth state
-  const { user, API } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     if (!user) return;
@@ -17,7 +18,7 @@ const MyList = () => {
         .then((res) => res.json())
         .then(setSpots);
     });
-  }, [user, API]);
+  }, [user]);
 
   const handleDelete = (id) => {
     Swal.fire({

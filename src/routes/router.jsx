@@ -11,6 +11,7 @@ import Error from "./../components/Shared/Error/Error";
 import SpotDetails from "../components/SpotDetails/SpotDetails";
 import UpdateTouristsSpot from "../pages/UpdateTouristsSpot/UpdateTouristsSpot";
 import PrivateRoute from "./PrivateRoute";
+import { API } from "../config";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       {
         path: "/all-tourists-spot",
         Component: AllTouristsSpot,
-        loader: () => fetch("http://localhost:5000/all-tourists-spot"),
+        loader: () => fetch(`${API}/all-tourists-spot`),
       },
       { path: "/add-tourists-spot", Component: AddTouristsSpot },
 
@@ -32,14 +33,12 @@ const router = createBrowserRouter([
       {
         path: "/spot-details/:id",
         Component: SpotDetails,
-        loader: ({ params }) =>
-          fetch(`http://localhost:5000/all-tourists-spot/${params.id}`),
+        loader: ({ params }) => fetch(`${API}/all-tourists-spot/${params.id}`),
       },
       {
         path: "/update-tourists-spot/:id",
         Component: UpdateTouristsSpot,
-        loader: ({ params }) =>
-          fetch(`http://localhost:5000/all-tourists-spot/${params.id}`),
+        loader: ({ params }) => fetch(`${API}/all-tourists-spot/${params.id}`),
       },
       {
         Component: PrivateRoute,
@@ -47,7 +46,7 @@ const router = createBrowserRouter([
           {
             path: "/my-list",
             Component: MyList,
-            loader: () => fetch("http://localhost:5000/all-tourists-spot"),
+            loader: () => fetch(`${API}/all-tourists-spot`),
           },
         ],
       },
